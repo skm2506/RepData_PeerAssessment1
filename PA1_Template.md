@@ -15,13 +15,37 @@ getwd()
 mydata<- read.csv("C:/Users/sk_mi/Desktop/Coursera/Reproducible Research/week 2/repdata%2Fdata%2Factivity/activity.csv")
 str(mydata)
 ```
+```
+'data.frame':	17568 obs. of  3 variables:
+ $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ date    : Factor w/ 61 levels "2012-10-01","2012-10-02",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
+ ```
 
 ```{r, echo=TRUE}
 head(mydata)
 ```
+```
+steps       date interval
+1    NA 2012-10-01        0
+2    NA 2012-10-01        5
+3    NA 2012-10-01       10
+4    NA 2012-10-01       15
+5    NA 2012-10-01       20
+6    NA 2012-10-01       25
+```
 
 ```{r, echo=TRUE}
 tail(mydata)
+```
+```
+      steps       date interval
+17563    NA 2012-11-30     2330
+17564    NA 2012-11-30     2335
+17565    NA 2012-11-30     2340
+17566    NA 2012-11-30     2345
+17567    NA 2012-11-30     2350
+17568    NA 2012-11-30     2355
 ```
 
 
@@ -40,6 +64,12 @@ mediansteps_perday<- median(steps_perday$steps)
 print(meansteps_perday)
 print(mediansteps_perday)
 ```
+```
+> print(meansteps_perday)
+[1] 10766.19
+> print(mediansteps_perday)
+[1] 10765
+```
 
 ### Note: As we can see mean and median are both pretty much close to each other, this is how we can sense the average value of mydata.
 
@@ -53,6 +83,10 @@ steps_interval<- aggregate(steps ~ interval, mydata, mean)
 plot(steps_interval$interval, steps_interval$steps, type="l", xlab = "5 min - interval", ylab = "Average steps", main = "Average Daily Activity Pattern", col = "blue")
 steps_interval$interval[which.max(steps_interval$steps)]
 ```
+```
+> steps_interval$interval[which.max(steps_interval$steps)]
+[1] 835
+```
 ![](figure/unnamed-chunk-4.png)
 ##  Imputing missing values;
 Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
@@ -60,6 +94,10 @@ Note that there are a number of days/intervals where there are missing values (c
 ### We will calculate the total number of missing values in the dataset;
 ```{r, echo=TRUE}
 nrow(mydata[is.na(mydata$steps),])
+```
+```
+> nrow(mydata[is.na(mydata$steps),])
+[1] 2304
 ```
 
 ### Now we will devise a "strategy" for filling in all of the missing values in the dataset;
@@ -85,6 +123,12 @@ meansteps_perday_withoutNAs<- mean(steps_perday_withoutNAs$steps)
 mediansteps_perday_withoutNAs<- median(steps_perday_withoutNAs$steps)
 print(meansteps_perday_withoutNAs)  # mean
 print(mediansteps_perday_withoutNAs)  # median
+```
+```
+> print(meansteps_perday_withoutNAs)  # mean
+[1] 9354.23
+> print(mediansteps_perday_withoutNAs)  # median
+[1] 10395
 ```
 
 The mean and the median are now almost the same after replacing missing values with the mean value for the relevant interval. It makes sense that the median value would now move closer to the mean. So the Median value increased after this method of missing value replacement.
