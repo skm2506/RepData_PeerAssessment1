@@ -31,7 +31,7 @@ tail(mydata)
 steps_perday<- aggregate(steps~date, mydata, sum)
 hist(steps_perday$steps, main = "Steps Taken Per day", xlab = "Steps", col = "blue", breaks = 8)
 ```
-
+![](figure/unnamed-chunk-2.png)
 ## Let's find the mean and median of the total no of steps;
 
 ```{r, echo=TRUE}
@@ -53,7 +53,7 @@ steps_interval<- aggregate(steps ~ interval, mydata, mean)
 plot(steps_interval$interval, steps_interval$steps, type="l", xlab = "5 min - interval", ylab = "Average steps", main = "Average Daily Activity Pattern", col = "blue")
 steps_interval$interval[which.max(steps_interval$steps)]
 ```
-
+![](figure/unnamed-chunk-4.png)
 ##  Imputing missing values;
 Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
 
@@ -77,7 +77,7 @@ steps_perday_withoutNAs<- aggregate(steps ~ date, newdata_withoutNAs, sum)
 
 hist(steps_perday_withoutNAs$steps, main = "Total Steps Per Day", xlab = "Steps", col = "grey", breaks = 10)
 ```
-
+![](figure/unnamed-chunk-7.png)
 ### and Calculate and report the mean and median total number of steps taken per day;
 
 ```{r, echo=TRUE}
@@ -104,5 +104,5 @@ stepsInterval2=aggregate(steps~interval+day,newdata_withoutNAs,mean)
 library(lattice)
 xyplot(steps~interval|factor(day),data=stepsInterval2,aspect=1/2,type="l")
 ```
-
+![](figure/unnamed-chunk-10.png)
 
